@@ -5,7 +5,9 @@
         "JWT_SECRET": "SECRET@123",
         "JWT_EXP": "15m",
         "FRONTEND_URL": "localhost:4200",
-        "BACKEND_URL": "http://localhost:3500/"
+        "BACKEND_URL": "http://localhost:3500/",
+        "mailer_email":"hellofinalyear@gmail.com",
+        "mailer_pass":"hellofinal"
     },
     "production": {
         "PORT": 100,
@@ -13,6 +15,8 @@
         "JWT_SECRET": "SECRET@123",
         "JWT_EXP": "15m",
         "FRONTEND_URL": "localhost:4200",
-        "BACKEND_URL": "http://localhost:3500/"
+        "BACKEND_URL": "http://localhost:3500/",
+        "mailer_email":"hellofinalyear@gmail.com",
+        "mailer_pass":"hellofinal"
     }
 }
