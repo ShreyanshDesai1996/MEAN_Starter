@@ -1,20 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//material imports
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
-    MatInputModule,
     MatCardModule,
-    AppRoutingModule
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
