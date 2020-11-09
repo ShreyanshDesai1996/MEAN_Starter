@@ -39,8 +39,8 @@ router.post('/signup', (req, res, next) => {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: "lemonteam.pitcher@gmail.com",
-                    pass: "pitcheR@123",
+                    user: process.env.mailer_email,
+                    pass: process.env.mailer_pass,
                 },
             });
 
@@ -153,44 +153,38 @@ router.post('/forgot', (req, res) => {
                 <p><b>NOTE: </b> The activation link expires in 30 minutes.</p>
                 `;
 
-            User.updateOne({ resetLink: token }, (err, success) => {
-                if (err) {
-                    errors.push({ msg: 'Error resetting password!' });
-                    res.send(errors);
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.mailer_email,
+                    pass: process.env.mailer_pass,
+                },
+            });
+
+            // send mail with defined transport object
+            const mailOptions = {
+                from: '"Team_Lemon" <lemonteam.pitcher@gmail.com>', // sender address
+                to: email, // list of receivers
+                subject: "Account Password Reset: Pitcher Auth ✔", // Subject line
+                html: output, // html body
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+
+                    errors.push('Something went wrong on our end. Please try again later.');
+                    res.send(errors)
                 }
                 else {
-                    const transporter = nodemailer.createTransport({
-                        service: 'gmail',
-                        auth: {
-                            user: "lemonteam.pitcher@gmail.com",
-                            pass: "pitcheR@123",
-                        },
-                    });
+                    console.log('Mail sent : %s', info.response);
 
-                    // send mail with defined transport object
-                    const mailOptions = {
-                        from: '"Team_Lemon" <lemonteam.pitcher@gmail.com>', // sender address
-                        to: email, // list of receivers
-                        subject: "Account Password Reset: Pitcher Auth ✔", // Subject line
-                        html: output, // html body
-                    };
+                    response.push({ msg: 'Password reset link sent to email ID. Please follow the instructions.' });
+                    res.send(response);
 
-                    transporter.sendMail(mailOptions, (error, info) => {
-                        if (error) {
-
-                            errors.push('Something went wrong on our end. Please try again later.');
-                            res.send(errors)
-                        }
-                        else {
-                            console.log('Mail sent : %s', info.response);
-
-                            response.push({ msg: 'Password reset link sent to email ID. Please follow the instructions.' });
-                            res.send(response);
-
-                        }
-                    })
                 }
             })
+
 
         }
     });
@@ -202,24 +196,17 @@ router.post('/forgot', (req, res) => {
 /* router.get('/forgot/:token', (req, res, next) => {
     const { token } = req.params;
     const mailurl = 'http://' + process.env.FRONTEND_URL;
-
     if (token) {
         jwt.verify(token, JWT_RESET_KEY, (err, decodedToken) => {
             if (err) {
-
-
                 console.log('Incorrect or expired link! Please try again.');
-
                 res.redirect(mailurl + '/reset');
             }
             else {
                 const { _id } = decodedToken;
                 User.findById(_id, (err, user) => {
                     if (err) {
-
-
                         console.log('User with email ID does not exist! Please try again.');
-
                         res.redirect(mailurl + '/password');
                     }
                     else {
@@ -232,7 +219,6 @@ router.post('/forgot', (req, res) => {
     else {
         console.log("Password reset error!")
     }
-
 })
  */
 
@@ -240,9 +226,9 @@ router.post('/forgot', (req, res) => {
 router.post('/reset/:token', (req, res, next) => {
     let responses = []
     var { password, password2 } = req.body;
-    
+
     const mailurl = 'http://' + process.env.FRONTEND_URL;
-    var {token} = req.params
+    var { token } = req.params
     if (token) {
         jwt.verify(token, JWT_RESET_KEY, (err, decodedToken) => {
             if (err) {
@@ -282,7 +268,7 @@ router.post('/reset/:token', (req, res, next) => {
         })
     }
 
-    
+
 })
 
 router.post('/authenticate', (req, res) => {
@@ -294,7 +280,7 @@ router.post('/authenticate', (req, res) => {
                 if (err)
                     return err;
                 else {
-                    return res.status(200).json(user.generatedJwt())
+                    return res.status(200).json({ "result": "ok", "token": user.generatedJwt() })
                 }
             })
         } else
