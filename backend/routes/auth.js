@@ -24,7 +24,7 @@ router.post('/signup', (req, res, next) => {
         if (user) {
 
             errors.push({ msg: 'Email ID already registered' });
-            console.log(errors);
+            res.json({'result':'user already exists'});
 
         } else {
 
@@ -32,7 +32,7 @@ router.post('/signup', (req, res, next) => {
             const CLIENT_URL = 'http://' + req.headers.host;
             const output = `
             <h2>Please click on below link to activate your account</h2>
-            <p>${CLIENT_URL}/user/activateuser/${token}</p>
+            <p>${CLIENT_URL}/auth/activateuser/${token}</p>
             <p><b>NOTE: </b> The above activation link expires in 30 minutes.</p>
             `;
 
@@ -56,11 +56,12 @@ router.post('/signup', (req, res, next) => {
                 if (error) {
                     console.log(error);
 
-                    res.redirect('/user/signup');
+                    res.json({'result':'Error sending mail, please register again'});
                 }
                 else {
                     console.log('Mail sent : %s', info.response);
                     console.log("success")
+                    res.json({'result':'ok'});
                 }
             })
 
@@ -125,6 +126,7 @@ router.get('/activateuser/:token', (req, res, next) => {
     }
     else {
         console.log("Account activation error!")
+        res.json({'result':'Error activating account, please contact '})
     }
 
 

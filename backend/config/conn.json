@@ -1,7 +1,7 @@
 {
     "development": {
         "PORT": 3500,
-        "MONGODB_URI": "mongodb://localhost:27017/meanbase",
+        "MONGODB_URI": "mongodb://localhost:27017/mean_starter",
         "JWT_SECRET": "SECRET@123",
         "JWT_EXP": "15m",
         "FRONTEND_URL": "localhost:4200",
@@ -11,7 +11,7 @@
     },
     "production": {
         "PORT": 100,
-        "MONGODB_URI": "mongodb://localhost:27017/meanbase",
+        "MONGODB_URI": "mongodb://localhost:27017/mean_starter",
         "JWT_SECRET": "SECRET@123",
         "JWT_EXP": "15m",
         "FRONTEND_URL": "localhost:4200",
