@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { UserService } from '../user.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  result:any
 
-  ngOnInit(): void {
+  constructor(public userService : UserService) { }
+
+  async ngOnInit() {
+    this.result="Waiting for backend..."
+    this.result = <any> await this.userService.testAuth()
+    console.log('Response for testAuth:',this.result)
   }
 
 }

@@ -31,7 +31,7 @@ userSchema.methods.verifyPassword = function (password) {
 //generating jwt token for a user
 userSchema.methods.generateJwt = function () {
     console.log("Inside generatedJwt token")
-    return jwt.sign({ _id: this._id, name: this.name },
+    return jwt.sign({ _id: this._id, email: this.email },
         process.env.JWT_SECRET,
         /* {
             expiresIn: process.env.JWT_EXP

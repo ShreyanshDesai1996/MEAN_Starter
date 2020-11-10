@@ -48,7 +48,7 @@ router.post('/signup', (req, res, next) => {
             const mailOptions = {
                 from: '"Team_Lemon" <lemonteam.pitcher@gmail.com>', // sender address
                 to: email, // list of receivers
-                subject: "Account Verification: Pitcher Auth ✔", // Subject line
+                subject: "Account Verification✔", // Subject line
                 html: output, // html body
             };
 
@@ -168,7 +168,7 @@ router.post('/forgot', (req, res) => {
             const mailOptions = {
                 from: '"Team_Lemon" <lemonteam.pitcher@gmail.com>', // sender address
                 to: email, // list of receivers
-                subject: "Account Password Reset: Pitcher Auth ✔", // Subject line
+                subject: "Account Password Reset✔", // Subject line
                 html: output, // html body
             };
 

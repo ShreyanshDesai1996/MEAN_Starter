@@ -36,11 +36,15 @@ import { MatStepperModule } from '@angular/material/stepper';
 //service imports
 import { UserService } from './user.service'
 import { SnackService } from './snack.service'
+import { AuthGuardService } from './auth-guard.service'
+import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
+
 //component imports
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HomeComponent } from './home/home.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 
@@ -50,7 +54,8 @@ import { HomeComponent } from './home/home.component';
     SignUpComponent,
     LogInComponent,
     ForgotPasswordComponent,
-    HomeComponent
+    HomeComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +86,7 @@ import { HomeComponent } from './home/home.component';
     MatSidenavModule,
     MatStepperModule
   ],
-  providers: [UserService, SnackService],
+  providers: [UserService, SnackService, AuthGuardService, { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,6 @@
+/*
+  This service is used to display angular material snackbars
+*/
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
