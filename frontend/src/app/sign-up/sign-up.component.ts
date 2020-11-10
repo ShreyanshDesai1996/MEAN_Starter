@@ -24,6 +24,9 @@ export class SignUpComponent implements OnInit {
     if(result.result ==='ok'){
       this.snackService.showMessage('Success! Check your email to activate your account')
     }
+    else {
+      this.snackService.showMessage(result.result)
+    }
   }
 
 }

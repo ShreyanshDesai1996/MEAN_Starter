@@ -273,7 +273,8 @@ router.post('/reset/:token', (req, res, next) => {
 
 })
 
-router.post('/authenticate', (req, res) => {
+router.post('/login', (req, res) => {
+    console.log('User requested login:', req.body)
     passport.authenticate('local', (err, user, info) => {
         if (err)
             return res.status(400).json(err)
@@ -282,7 +283,7 @@ router.post('/authenticate', (req, res) => {
                 if (err)
                     return err;
                 else {
-                    return res.status(200).json({ "result": "ok", "token": user.generatedJwt() })
+                    return res.status(200).json({ "result": "ok", "token": user.generateJwt() })
                 }
             })
         } else

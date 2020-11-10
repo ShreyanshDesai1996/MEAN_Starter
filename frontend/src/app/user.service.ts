@@ -21,4 +21,17 @@ export class UserService {
       })
     })
   }
+
+  logIn(udata:JSON){
+    console.log('Sign in service method called with:', udata)
+    return new Promise((resolve) => {
+      return this.http.post(environment.apiBaseUrl + '/auth/login', udata).subscribe((result) => {
+        resolve(result)
+      })
+    })
+  }
+
+  setUserToken(token:string){
+    this.cookieService.set("utoken", token);
+  }
 }
